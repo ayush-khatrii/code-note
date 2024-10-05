@@ -20,7 +20,7 @@ export default async function page() {
           Add  note
         </Button>
       </Link>
-      <div className="my-10">
+      <div className="my-20">
         {notes.length === 0 && (
           <div>
             <p>No notes found</p>
@@ -32,14 +32,14 @@ export default async function page() {
               <CardHeader>
                 <CardTitle>
                   <div className="flex justify-between items-center text-center">
-                    <h1>{note.title}</h1>
+                    <h1 className="text-base">{note.title}</h1>
                     <span className="cursor-pointer">
-                      <Trash2Icon />
+                      <Trash2Icon className="size-5 sm:size-6" />
                     </span>
                   </div>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="text-sm lg:text-base">
                 {note.content}
               </CardContent>
             </Card>

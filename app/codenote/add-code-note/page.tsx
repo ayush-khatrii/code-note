@@ -15,6 +15,7 @@ import {
 import { Loader2 } from "lucide-react";
 import { routeros } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
 
 interface Language {
   name: string
@@ -24,6 +25,7 @@ interface Language {
 export default function Page() {
   const [code, setCode] = useState<string>("");
   const [language, setLanguage] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -37,6 +39,7 @@ export default function Page() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          title,
           code,
           language,
         }),
@@ -58,14 +61,19 @@ export default function Page() {
   return (
     <section className="px-5 lg:px-0">
       <form onSubmit={handleSubmit}>
+        <Input
+          value={title}
+          className=" my-3"
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter title"
+        />
         <Textarea
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          className="border-zinc-400"
           placeholder="Add code snippet"
         />
         <Select onValueChange={handleChange}>
-          <SelectTrigger className="w-full border border-zinc-400 mt-3">
+          <SelectTrigger className="w-full border  mt-3">
             <SelectValue placeholder="Language" />
           </SelectTrigger>
           <SelectContent>

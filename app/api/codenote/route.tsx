@@ -5,9 +5,10 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { code, language } = body;
+    const { code, title, language } = body;
     const note = await prisma.codenote.create({
       data: {
+        title,
         code,
         language,
       },

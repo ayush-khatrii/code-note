@@ -2,15 +2,27 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import prisma from "@/prisma/client";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { Trash2Icon } from "lucide-react";
 import Link from "next/link";
 
 export default async function page() {
+  const { userId } = auth();
+
   const notes = await prisma.note.findMany({
+    where: {
+      User: {
+        clerkId: userId as string,
+      }
+    },
     orderBy: {
       createdAt: "desc",
     },
   });
+
+  console.log(userId);
+  console.log(notes);
+
 
 
   return (

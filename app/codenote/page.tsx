@@ -2,10 +2,20 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import prisma from "@/prisma/client";
 import CodeHighlighter from "@/components/CodeHighlighter";
+import { auth } from "@clerk/nextjs/server";
 
 export default async function page() {
+  const { userId } = auth();
+
   const codeNote = await prisma.codenote.findMany({
-    orderBy: { createdAt: "desc", },
+    where: {
+      User: {
+        clerkId: userId as string,
+      }
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return (
